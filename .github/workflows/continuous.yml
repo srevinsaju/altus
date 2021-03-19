@@ -118,13 +118,10 @@ jobs:
     - uses: actions/download-artifact@v2
 
     - name: Release
-      uses: marvinpinto/action-automatic-releases@v1.1.0
-      with:
-        prerelease: false
-        files: |
-          altus-continuous-x86_64.AppImage
-          altus-continuous-x86_64.exe
-          altus-continuous-x86_64.dmg
-
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        wget https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
+        chmod +x pyuploadtool*.AppImage
+        ./pyuploadtool*.AppImage altus-continuous-x86_64.dmg/*.dmg altus-continuous-x86_64.AppImage/*.AppImage altus-continuous-x86_64.exe/*.exe 
  
